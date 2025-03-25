@@ -62,12 +62,6 @@ NFT Minting & Marketplace for Fragrance Industry in Solana Blockchain using Meta
    solana airdrop 2 YOUR_PUBLIC_KEY --url devnet
    ```
 
-⚠️ **IMPORTANT SECURITY NOTES:**
-- Never commit your `.env` file to source control
-- Keep your private key secure and backed up
-- Use different wallets for development and production
-- The `.gitignore` file should include `.env`
-
 ## Configuration
 
 The tool uses a configuration object in `nft.js`:
@@ -140,16 +134,16 @@ json
 
 ## Security Considerations
 
-### 🔒 Private Keys
+### Private Keys
 - Never commit private keys to source control
 - Use environment variables for sensitive data
 - Keep your wallet secure
 
-### 🌐 Network Selection
+### Network Selection
 - Default network is Solana devnet
 - Test thoroughly before mainnet deployment
 
-### ⚡ Rate Limiting
+### Rate Limiting
 - Default delay is 2 seconds between mints
 - Adjust `mintingDelay` if needed
 
@@ -187,14 +181,14 @@ Transaction was not confirmed in 60.00 seconds
 
 ## Best Practices
 
-1. ✅ Always check status before minting:
+1. Always check status before minting:
    ```bash
    node nft.js status
    ```
-2. 📋 Mint batches sequentially
-3. 💰 Monitor wallet balance regularly
-4. 💾 Back up minting records
-5. 🧪 Test with small batches first
+2. Mint batches sequentially
+3. Monitor wallet balance regularly
+4. Back up minting records
+5. Test with small batches first
 
 ## Error Handling
 
@@ -227,16 +221,4 @@ The tool includes error handling for:
 
 ## License
 
-MIT License
-
-## Support
-
-For support:
-1. Check the troubleshooting guide above
-2. Open an issue in the repository
-3. Contact maintainers
-
 ---
-
-**Note:** This tool is intended for development and testing purposes. Always verify transactions and test thoroughly before using on mainnet.
-
