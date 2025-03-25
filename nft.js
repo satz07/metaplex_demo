@@ -2,39 +2,56 @@ import { Metaplex, keypairIdentity } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl, Keypair } from "@solana/web3.js";
 import bs58 from "bs58";
 import fs from 'fs/promises';
+import dotenv from 'dotenv';
 
-// let keypair = Keypair.generate()
-// let base58PrivateKey = bs58.encode(keypair.secretKey)
+// Load environment variables
+dotenv.config();
 
-// Configuration object
+/**
+ * Main Configuration Object
+ * Defines all the parameters for the NFT minting process
+ */
+
 const CONFIG = {
-  totalSupply: 10,
-  batchSize: 2,
-  numberOfBatches: 5,
-  mintingDelay: 2000, // Delay between mints in milliseconds
-  recordsFile: './minting-records.json',
+  totalSupply: 10,          // Total number of NFTs that can be minted
+  batchSize: 2,             // Number of NFTs in each batch
+  numberOfBatches: 5,       // Total number of batches
+  mintingDelay: 2000,       // Delay between individual mints (in milliseconds)
+  recordsFile: './minting-records.json',  // File to store minting records
   nftConfig: {
     name: "My NFT Collection",
     symbol: "MNFT",
-    sellerFeeBasisPoints: 500, // 5%
-    isMutable: true,
-    // You can store your metadata URIs in an array if they're different for each NFT
+    sellerFeeBasisPoints: 500,  // 5% royalty fee
+    isMutable: true,            // NFT metadata can be updated later
     baseUri: "https://rv7ujzn3s4nolx3gabyfpg4lknggg5qqv6be323idut1aqkrzfxa.arweave.net/jX9E5buXGuXfZgBMJuIU"
   }
 };
 
-// Initialize wallet and connection
-const PRIVATE_KEY_BASE58 = "WJt99t5zTbXDrPwZQb5SJHgtAutWBQpUXuEoMrvQ6StDaNCNcVU1R82AAFrSZrjsRD4af9eztyaHQqfyRDSE17i";
+// Wallet initialization using environment variable
+// WARNING: Never commit private keys to source control
+console.log(process.env.PRIVATE_KEY_BASE58)
+const PRIVATE_KEY_BASE58 = process.env.PRIVATE_KEY_BASE58
+if (!PRIVATE_KEY_BASE58) {
+  throw new Error("Private key not found in environment variables!");
+}
+
 const wallet = Keypair.fromSecretKey(bs58.decode(PRIVATE_KEY_BASE58));
 console.log("Using Wallet Address:", wallet.publicKey.toBase58());
 
+// Initialize Solana connection with devnet
 const connection = new Connection(clusterApiUrl("devnet"), {
   commitment: "confirmed",
-  confirmTransactionInitialTimeout: 60000
+  confirmTransactionInitialTimeout: 60000  // 60 second timeout
 });
+
+// Initialize Metaplex instance
 const metaplex = Metaplex.make(connection).use(keypairIdentity(wallet));
 
-// Minting records management
+/**
+ * Loads the minting records from the JSON file
+ * Creates default structure if file doesn't exist
+ * @returns {Promise<Object>} The minting records
+ */
 async function loadMintingRecords() {
   try {
     const data = await fs.readFile(CONFIG.recordsFile, 'utf8');
@@ -43,20 +60,34 @@ async function loadMintingRecords() {
     return {
       mintedCount: 0,
       mintedNFTs: [],
-      lastBatchMinted: -1,
+      lastBatchMinted: 0,
       lastMintTimestamp: null
     };
   }
 }
 
+/**
+ * Saves the minting records to the JSON file
+ * @param {Object} records - The records to save
+ */
 async function saveMintingRecords(records) {
   await fs.writeFile(CONFIG.recordsFile, JSON.stringify(records, null, 2));
 }
 
+/**
+ * Utility function to pause execution
+ * @param {number} ms - Milliseconds to sleep
+ */
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * Mints a single NFT
+ * @param {number} index - The index of the NFT in the collection
+ * @param {Object} records - The current minting records
+ * @returns {Promise<boolean>} Success status of the mint
+ */
 async function mintSingleNFT(index, records) {
   try {
     console.log(`Minting NFT #${index + 1}...`);
@@ -92,6 +123,10 @@ async function mintSingleNFT(index, records) {
   }
 }
 
+/**
+ * Mints a batch of NFTs
+ * @param {number} batchNumber - The batch number to mint
+ */
 async function mintBatch(batchNumber) {
   const records = await loadMintingRecords();
   
@@ -134,6 +169,10 @@ async function mintBatch(batchNumber) {
   console.log(`Total NFTs Minted: ${records.mintedCount}`);
 }
 
+/**
+ * Displays the current minting status
+ * Shows total supply, minted count, and details of minted NFTs
+ */
 async function showMintingStatus() {
   const records = await loadMintingRecords();
   console.log("\nMinting Status:");
@@ -149,7 +188,7 @@ async function showMintingStatus() {
   }
 }
 
-// Command line interface
+// CLI command handling
 const command = process.argv[2];
 const batchNumber = parseInt(process.argv[3]);
 

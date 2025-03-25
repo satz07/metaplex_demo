@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/**/*.test.js",
+    "test:watch": "mocha test/**/*.test.js --watch",
+    "test:coverage": "c8 mocha test/**/*.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -11,8 +13,14 @@
   "dependencies": {
     "@metaplex-foundation/js": "^0.20.1",
     "@solana/web3.js": "^1.98.0",
-    "bs58": "^6.0.0"
+    "bs58": "^6.0.0",
+    "dotenv": "^16.0.3"
   },
   "type": "module",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "chai": "^4.3.7",
+    "c8": "^8.0.0"
+  }
 }
