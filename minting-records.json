@@ -1,0 +1,21 @@
+{
+  "mintedCount": 2,
+  "mintedNFTs": [
+    {
+      "number": 1,
+      "address": "AhfPqbPs7cLT2yzSEBHS117VzPGL6D1k2pRq6TyVcNB1",
+      "name": "My NFT Collection #1",
+      "mintedAt": "2025-03-20T18:56:53.959Z",
+      "batchNumber": 1
+    },
+    {
+      "number": 2,
+      "address": "D5dA4kDHnA7j2Aptdd1pq3pdM3Ms8y8czyUAALRNh77N",
+      "name": "My NFT Collection #2",
+      "mintedAt": "2025-03-20T18:57:01.987Z",
+      "batchNumber": 1
+    }
+  ],
+  "lastBatchMinted": 1,
+  "lastMintTimestamp": "2025-03-20T18:57:01.988Z"
+}

@@ -1,0 +1,20 @@
+{
+    "name": "My NFT",
+    "symbol": "MYNFT",
+    "description": "This is my first NFT using Metaplex.",
+    "image": "https://go.web3approved.com/AYRjt",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Blue"
+      }
+    ],
+    "properties": {
+      "creators": [
+        {
+          "address": "GRRGd7QaH8f9K9MeMkpwDvBw4mpyL2bJVUctWWrMi4jJ",
+          "share": 100
+        }
+      ]
+    }
+  }
