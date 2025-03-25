@@ -1,6 +1,6 @@
-# NFT Batch Minting Tool
+# NFT Minting & Marketplace on Solana Blockchain
 
-A command-line tool for minting NFTs in batches on the Solana blockchain. This tool provides controlled batch minting with persistent tracking of minting progress.
+NFT Minting & Marketplace for Fragrance Industry in Solana Blockchain using Metaplex library.
 
 ## Features
 
