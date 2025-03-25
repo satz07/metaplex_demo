@@ -2,3 +2,4 @@
 .specstory
 .specstory/history
 /node_modules
+.gitignore
