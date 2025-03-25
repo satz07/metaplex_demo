@@ -4,12 +4,12 @@ NFT Minting & Marketplace for Fragrance Industry in Solana Blockchain using Meta
 
 ## Features
 
-- 🎨 Batch minting of NFTs with configurable sizes
-- 📝 Persistent progress tracking in JSON format
-- 🔄 Sequential batch enforcement to prevent gaps
-- 📊 Detailed minting records with timestamps
-- ⏱️ Configurable delays between mints
-- 💻 Command-line interface for easy interaction
+- Batch minting of NFTs with configurable sizes
+- Persistent progress tracking in JSON format
+- Sequential batch enforcement to prevent gaps
+- Detailed minting records with timestamps
+- Configurable delays between mints
+- Command-line interface for easy interaction
 
 ## Prerequisites
 
